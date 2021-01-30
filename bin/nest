@@ -1,0 +1,14 @@
+
+export $(cat $(dirname $0)/../.env)
+
+$DOCKER run \
+	--rm \
+	--interactive \
+	--tty \
+	--user=$(id -u):$(id -g) \
+	--volume=$PWD:/workdir \
+	--workdir=/workdir \
+	--entrypoint=nest \
+	$NODEUTILS_IMAGE \
+	$*
+

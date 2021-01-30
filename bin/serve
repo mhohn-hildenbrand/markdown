@@ -1,0 +1,15 @@
+
+export $(cat $(dirname $0)/../.env)
+
+$DOCKER run \
+	--rm \
+	--interactive \
+	--tty \
+	--volume=$PWD:/workdir \
+	--user=$(id -u):$(id -g) \
+	--workdir=/workdir \
+	--entrypoint=serve \
+	--publish=$SERVE_URI:$SERVE_URI \
+	$NODEUTILS_IMAGE \
+	-l $SERVE_URI $*
+
